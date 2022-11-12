@@ -7,9 +7,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">Home</a>
+              @if(Auth::check())  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{route('index_profile',Auth::id())}}">Profile</a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#">Features</a>
                 </li>

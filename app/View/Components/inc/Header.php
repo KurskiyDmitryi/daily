@@ -23,6 +23,5 @@ class Header extends Component
      */
     public function render()
     {
-        return view('components.inc.header');
     }
 }

@@ -10,19 +10,20 @@
         </div>
         <div class="row" style="margin: 100px;" id="form">
             <div class="form">
-                <input type="text" id="name" class="form-control" placeholder="name" name="name" aria-label="First name"
+                <input type="text" id="name" class="form-control" placeholder="nickname" name="name"
                        style="width: 200px">
             </div>
             <div class="form">
-                <input type="email" id="email" class="form-control" placeholder="email" name="email" aria-label="Last name"
+                <input type="email" id="email" class="form-control" placeholder="email" name="email"
                        style="width: 200px">
             </div>
             <div class="form">
-                <input type="password" id="password" class="form-control" placeholder="password"  name="password" aria-label="Last name"
+                <input type="password" id="password" class="form-control" placeholder="password" name="password"
                        style="width: 200px">
             </div>
             <div class="form">
-                <input type="password" id="confirm" class="form-control" placeholder="confirm password" name="password_confirmation" aria-label="Last name"
+                <input type="password" id="confirm" class="form-control" placeholder="confirm password"
+                       name="password_confirmation"
                        style="width: 200px">
             </div>
             <div class="form">
@@ -45,7 +46,7 @@
                             url: "{{route('register_user')}}",
                             data: {
                                 "_token": "{{ csrf_token() }}",
-                                name: name, email: email, password: password,password_confirmation:confirm_password
+                                nickname: name, email: email, password: password, password_confirmation: confirm_password
                             },
                             success: function (data) {
                                 if (data) {
@@ -74,7 +75,7 @@
                 padding: 12px;
             }
 
-            h2,h3{
+            h2, h3 {
                 text-align: center;
                 text-decoration: underline;
                 color: cornflowerblue;

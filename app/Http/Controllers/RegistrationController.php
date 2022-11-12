@@ -20,7 +20,7 @@ class RegistrationController extends Controller
     function store(RegistrationRequest $request)
     {
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->nickname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
