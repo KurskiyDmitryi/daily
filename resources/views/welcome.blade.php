@@ -4,7 +4,7 @@
     </x-slot:title>
     <div id="index_image" style="position: relative;text-align: center;color: white;">
         <h1 class="centered">Everyone has their own story</h1>
-        <img src="index.jpg" style="width: 100%;height: 100%">
+        <img src="public/index.jpg" style="width: 100%;height: 100%">
 
     </div>
     <style>
