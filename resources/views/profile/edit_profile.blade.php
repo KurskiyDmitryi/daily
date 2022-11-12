@@ -8,22 +8,31 @@
         <label for="age">
             <h5>Age</h5>
         </label>
-        <input name="age" id="age" type="number" placeholder=@if(empty($user->profile->age))"empty"@else
-            "{{$user->profile->age}}"
-        @endif>
+        <input name="age" id="age" type="number" value="@if(!empty($user->profile->age)){{$user->profile->age}}@endif"
+               placeholder=@if(empty($user->profile->age))"empty"
+            @endif >
+        <button id="age" class="btn btn-danger btn-sm">Delete</button>
         <br>
         <label for="from">
             <h5>From</h5>
         </label>
-        <input name="from" id="from" placeholder=@if(empty($user->profile->from))"empty"@else
-            "{{$user->profile->from}}"
+        <input name="from" id="from" value="@if(!empty($user->profile->from)){{$user->profile->from}}@endif" placeholder=@if(empty($user->profile->from))"empty"
         @endif>
+        <button class="btn btn-danger btn-sm">Delete</button>
         <br>
-        <label for="sex">
+        <label for="from">
             <h5>Sex</h5>
         </label>
-        <input name="sex" id="sex" placeholder=@if(empty($user->profile->sex))"empty"@else
-            "{{$user->profile->from}}">@endif
+
+        <select id="select" style="margin-left: 20px">
+            <option @if(!isset($user->profile->sex)) selected @endif>empty</option>
+            <option @if(isset($user->profile->sex) && $user->profile->sex == 'male') selected @else  @endif >male</option>
+            <option @if(isset($user->profile->sex) && $user->profile->sex == 'female') selected @else @endif>female</option>
+            <option @if(isset($user->profile->sex) && $user->profile->sex == 'not decided') selected @endif>not decided</option>
+        </select>
+
+        {{--        <input name="sex" id="sex" placeholder=@if(empty($user->profile->sex))"empty"@else--}}
+        {{--            "{{$user->profile->from}}">@endif--}}
     </div>
     <br>
     <input type="submit" id="submit" class="btn btn-primary" value="Submit">
@@ -35,7 +44,8 @@
         label {
             margin-left: 10px;
         }
-        h5{
+
+        h5 {
             color: cornflowerblue;
         }
     </style>
@@ -47,7 +57,7 @@
                     $('#error_reporting').html('');
                     var age = $('input#age').val();
                     var from = $('input#from').val();
-                    var sex = $('input#sex').val();
+                    var sex = $('#select').val();
                     $.ajax({
                         method: "POST",
                         url: "{{route('store_profile',$user->id)}}",
@@ -75,5 +85,5 @@
                 })
             })
         </script>
-        @endpush
+    @endpush
 </x-inc.layout>

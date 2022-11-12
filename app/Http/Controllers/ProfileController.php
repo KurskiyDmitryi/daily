@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -18,22 +19,30 @@ class ProfileController extends Controller
     function edit()
     {
         $user = User::find(Auth::id());
-        return view('profile.edit_profile',['user'=>$user]);
+        return view('profile.edit_profile', ['user' => $user]);
     }
+
     function store(Request $request)
     {
-        $data = $request->validate([
-            'age'=>'integer',
-            'from'=>'string|max:12',
-            'sex'=>'string|max:12',
-        ]);
-        Profile::create([
-            'age' => $data['age'],
-            'from'=>$data['from'],
-            'sex'=> $data['sex'],
-            'user_id'=>Auth::id(),
-        ]);
 
-        return url(route('index_profile',Auth::id()));
+        $data = $request->validate([
+            'from' => 'max:22',
+        ]);
+        if (User::find(Auth::id())->profile->user_id == Auth::id()) {
+            Profile::where('user_id', Auth::id())->update([
+                'age' => $request['age'],
+                'from' => $data['from'],
+                'sex' => $request['sex'],
+                'user_id' => Auth::id(),
+            ]);
+        } else {
+            Profile::create([
+                'age' => $request['age'],
+                'from' => $data['from'],
+                'sex' => $request['sex'],
+                'user_id' => Auth::id(),
+            ]);
+        }
+        return url(route('index_profile', Auth::id()));
     }
 }
