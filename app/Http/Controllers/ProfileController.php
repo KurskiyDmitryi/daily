@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $data = $request->validate([
             'from' => 'max:22',
         ]);
-        if (User::find(Auth::id())->profile->user_id == Auth::id()) {
+        if (!empty(User::find(Auth::id())->profile->user_id) && User::find(Auth::id())->profile->user_id == Auth::id()) {
             Profile::where('user_id', Auth::id())->update([
                 'age' => $request['age'],
                 'from' => $data['from'],
