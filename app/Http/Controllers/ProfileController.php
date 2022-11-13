@@ -45,4 +45,5 @@ class ProfileController extends Controller
         }
         return url(route('index_profile', Auth::id()));
     }
+
 }

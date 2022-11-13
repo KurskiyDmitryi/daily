@@ -30,9 +30,6 @@ class RegistrationController extends Controller
 
     }
 
-    function delete()
-    {
 
 
-    }
 }

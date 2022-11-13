@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::post('/test',[RegistrationController::class,'test']);
+
 Route::controller(RegistrationController::class)->group(function () {
     Route::get('/register', [RegistrationController::class, 'create'])->name('register_user');
     Route::post('/register', [RegistrationController::class, 'store'])->name('store_user');
@@ -36,6 +38,7 @@ Route::middleware('auth')->group(function()
     Route::get('profile/{id}',[ProfileController::class,'index'])->name('index_profile');
     Route::get('profile/edit/{id}',[ProfileController::class,'edit'])->name('edit_profile');
     Route::post('profile/edit/{id}',[ProfileController::class,'store'])->name('store_profile');
+    Route::post('profile/delete',[ProfileController::class,'delete'])->name('delete_from_profile');
 });
 
 
