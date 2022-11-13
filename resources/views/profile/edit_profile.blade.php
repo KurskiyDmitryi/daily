@@ -41,7 +41,7 @@
         <br>
 
     </div>
-    <button type="submit" class="btn info" style="margin-left: 130px; margin-top: 30px">Save</button>
+    <input type="submit" id="submit" class="btn info" style="margin-left: 280px; margin-top: 30px" value="Save">
     <style>
         input {
             margin: 10px;

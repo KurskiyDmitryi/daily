@@ -20,7 +20,7 @@
             {{$user->profile->sex}}
         @endif</h2>
     </div>
-    <button class="btn info" style="margin-left: 50px; margin-top: 30px"><a href="{{route('edit_profile',Auth::id())}}"/>Edit</button>
+    <a href="{{route('edit_profile',Auth::id())}}" class="btn info" style="margin-left: 50px; margin-top: 30px">Edit</a>
 <style>
     .btn {
         border: 2px solid black;
