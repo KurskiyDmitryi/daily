@@ -7,8 +7,6 @@
             <h2>Registration</h2>
         </div>
         <div id="error_reporting">
-            <ul>
-            </ul>
         </div>
         <div class="row" style="margin: 100px;" id="form">
             <div class="form">
