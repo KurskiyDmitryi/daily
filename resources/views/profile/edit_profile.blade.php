@@ -92,6 +92,8 @@
                     } catch (e) {
 
                         if (e) {
+                            document.querySelector('#error_reporting').removeChild(document.querySelector('#error_reporting').firstChild);
+                            document.querySelector('#error_reporting').appendChild(document.createElement('ul'))
                             var errors = e.response.data.errors;
                             console.log(e.response.data)
                             for (let error  in errors) {

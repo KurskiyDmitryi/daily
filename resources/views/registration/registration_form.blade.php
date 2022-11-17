@@ -36,6 +36,7 @@
             <script type="text/javascript">
 
                 document.querySelector('#submit').addEventListener('click', async function () {
+
                     let nickname = document.querySelector('#name').value;
                     let email = document.querySelector('#email').value;
                     let password = document.querySelector('#password').value;
@@ -49,8 +50,9 @@
                         })
                         location.href = route;
                     } catch (e) {
+                        document.querySelector('#error_reporting').removeChild(document.querySelector('#error_reporting').firstChild);
+                        document.querySelector('#error_reporting').appendChild(document.createElement('ul'))
                         var errors = e.response.data.errors;
-                        console.log(e.response.data)
                         for (let error  in errors) {
                             var err = "<li style='color: red'>" + errors[error] + "</li>";
                             document.querySelector('#' + 'error_reporting' + ' ' + 'ul').innerHTML += err;
