@@ -26,7 +26,7 @@ class RegistrationController extends Controller
         ]);
 
         $user->assignRole('user');
-        return view('registration.registration_success');
+        return response()->json(['route'=>url(route('auth'))]);
 
     }
 

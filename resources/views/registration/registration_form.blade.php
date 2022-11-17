@@ -7,6 +7,8 @@
             <h2>Registration</h2>
         </div>
         <div id="error_reporting">
+            <ul>
+            </ul>
         </div>
         <div class="row" style="margin: 100px;" id="form">
             <div class="form">
@@ -32,42 +34,29 @@
         </div>
         @push('js')
             <script type="text/javascript">
-                $(document).ready(function () {
 
-                    $('#submit').on('click', function () {
-                        $('#error_reporting').html('');
-                        var name = $('input#name').val();
-                        var email = $('input#email').val();
-                        var password = $('input#password').val();
-                        var confirm_password = $('input#confirm').val();
-
-                        $.ajax({
-                            method: "POST",
-                            url: "{{route('register_user')}}",
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                nickname: name, email: email, password: password, password_confirmation: confirm_password
-                            },
-                            success: function (data) {
-                                if (data) {
-                                    $('#form').html('');
-                                    $('#form').append(data);
-                                }
-                            },
-                            error: function (xhr) {
-                                if (xhr) {
-                                    var errors = (JSON.parse(xhr.responseText))
-                                    errors = errors['errors'];
-                                    $.each(errors, function (index, value) {
-                                        var err = "<li style='color: red'>" + value + "</li>"
-                                        $('#' + 'error_reporting').append(err);
-                                    });
-                                }
-                            }
+                document.querySelector('#submit').addEventListener('click', async function () {
+                    let nickname = document.querySelector('#name').value;
+                    let email = document.querySelector('#email').value;
+                    let password = document.querySelector('#password').value;
+                    let password_confirmation = document.querySelector('#confirm').value;
+                    try {
+                        const {data: {route}} = await axios.post('{{route('store_user')}}', {
+                            nickname,
+                            email,
+                            password,
+                            password_confirmation
                         })
-
-                    })
-                })
+                        location.href = route;
+                    } catch (e) {
+                        var errors = e.response.data.errors;
+                        console.log(e.response.data)
+                        for (let error  in errors) {
+                            var err = "<li style='color: red'>" + errors[error] + "</li>";
+                            document.querySelector('#' + 'error_reporting' + ' ' + 'ul').innerHTML += err;
+                        }
+                    }
+                });
             </script>
         @endpush
         <style>

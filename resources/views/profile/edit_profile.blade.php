@@ -76,38 +76,32 @@
     </style>
     @push('js')
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#submit').on('click', function () {
-                    $('#error_reporting').html('');
+            $('#error_reporting').html('');
+
+            document.querySelector('#submit').addEventListener('click', async function () {
                     var age = $('input#age').val();
                     var from = $('input#from').val();
                     var sex = $('#select').val();
-                    $.ajax({
-                        method: "POST",
-                        url: "{{route('store_profile',$user->id)}}",
-                        data: {
-                            "_token": "{{ csrf_token() }}",
-                            age: age, from: from, sex: sex
-                        },
-                        success: function (data) {
-                            if (data) {
-                                location.href = data;
-                            }
-                        },
-                        error: function (xhr) {
-                            if (xhr) {
-                                var errors = (JSON.parse(xhr.responseText))
-                                errors = errors['errors'];
-                                $.each(errors, function (index, value) {
-                                    var err = "<li style='color: red'>" + value + "</li>"
-                                    $('#' + 'error_reporting').append(err);
-                                });
+                    try {
+                        const {data: {route}} = await axios.post('{{route('store_profile',$user->id)}}', {
+                            age,
+                            from,
+                            sex
+                        })
+                        location.href = route;
+                    } catch (e) {
+
+                        if (e) {
+                            var errors = e.response.data.errors;
+                            console.log(e.response.data)
+                            for (let error  in errors) {
+                                var err = "<li style='color: red'>" + errors[error] + "</li>";
+                                document.querySelector('#' + 'error_reporting' + ' ' + 'ul').innerHTML += err;
                             }
                         }
-                    })
-
-                })
-            })
+                    }
+                }
+            )
         </script>
     @endpush
 </x-inc.layout>

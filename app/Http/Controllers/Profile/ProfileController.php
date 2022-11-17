@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileRequest;
 use App\Models\Profile;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -22,28 +22,24 @@ class ProfileController extends Controller
         return view('profile.edit_profile', ['user' => $user]);
     }
 
-    function store(Request $request)
+    function store(ProfileRequest $request)
     {
-
-        $data = $request->validate([
-            'from' => 'max:22',
-        ]);
         if (!empty(User::find(Auth::id())->profile->user_id) && User::find(Auth::id())->profile->user_id == Auth::id()) {
             Profile::where('user_id', Auth::id())->update([
                 'age' => $request['age'],
-                'from' => $data['from'],
+                'from' => $request['from'],
                 'sex' => $request['sex'],
                 'user_id' => Auth::id(),
             ]);
         } else {
             Profile::create([
                 'age' => $request['age'],
-                'from' => $data['from'],
+                'from' => $request['from'],
                 'sex' => $request['sex'],
                 'user_id' => Auth::id(),
             ]);
         }
-        return url(route('index_profile', Auth::id()));
+        return response()->json(['route' => url(route('index_profile',Auth::id()))]);
     }
 
 }
